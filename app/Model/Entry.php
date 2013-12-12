@@ -18,4 +18,8 @@ class Entry extends AppModel {
             'rule' => 'notEmpty'
         )
     );
+
+    public function isOwnedBy($entry, $user) {
+        return $this->field('id', array('id' => $entry, 'user_id' => $user)) === $entry;
+    }
 }

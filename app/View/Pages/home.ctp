@@ -9,6 +9,11 @@
     <hr />
     <h3><?php echo $entry['Entry']['title'];?></h3>
     <small><?php echo $entry['Entry']['creation_date']; ?></small>
+    <?php if($entry['User']['id'] == $this->Session->read('Auth.User.id')) {
+        echo $this->Html->link('Edit', 
+            array('controller' => 'entries', 'action' => 'edit', $entry['Entry']['id'])); 
+    }
+    ?>
     <br />
     <?php echo $entry['Entry']['content']; ?>
     <br />

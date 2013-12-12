@@ -25,6 +25,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	<title>
 		<?php echo $title_for_layout; ?>
 	</title>
+	
 	<?php
 		echo $this->Html->meta('icon');
 
@@ -32,6 +33,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->Html->css('custom');
 		echo $this->Html->script('jquery.min');
 		echo $this->Html->script('bootstrap.min');
+		echo $this->Html->script('tweet_animation');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -48,32 +50,46 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Cristian Pinto</a>
+          <?php echo $this->Html->link('Amazing Posts',
+			array('controller' => 'entries', 'action' => 'index'), array('class' => 'navbar-brand')); ?>
+        </td>
         </div>
         <div class="navbar-collapse collapse">
           
           <ul class="nav navbar-nav navbar-right">
-          	<?php if($this->Session->read('Auth.User')) {?>
-          		<li><a href="../navbar/"><?php echo $this->Session->read('Auth.User.username'); ?></a></li>
-          		<li><a href="../navbar-static-top/">Log-out</a></li>
+          	<?php if($this->Session->read('Auth.User')) { ?>
+          		<li>
+          			<?php echo $this->Html->link('Welcome ' . $this->Session->read('Auth.User.username'),
+					array('controller' => 'users', 'action' => 'view', $this->Session->read('Auth.User.id'))); ?>
+				</li>
+          		<li>
+          			<?php echo $this->Html->link('Log-out',
+						array('controller' => 'users', 'action' => 'logout')); ?>
+          		</li>
 			<?php } else { ?>
-            <li><a href="../navbar/">Log-in</a></li>
-            <li><a href="./">Register</a></li>
+            	<li>
+            		<?php echo $this->Html->link('Log-in',
+						array('controller' => 'users', 'action' => 'login')); ?>
+            	</li>
+            	<li>
+            		<?php echo $this->Html->link('Register',
+						array('controller' => 'users', 'action' => 'register')); ?>
+            	</li>
             <?php } ?>
           </ul>
         </div>
       </div>
     </div>
 	<div class="container">
-		<div id="header">
-			<!-- <h1><?php echo $title_for_layout; ?></h1> -->
-		</div>
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
 			<?php echo $this->fetch('content'); ?>
 		</div>
-		<div id="footer">
-			
+		<hr/>
+		<div class="footer">
+			<div class="container">
+				
+			</div>
 		</div>
 	</div>
 	

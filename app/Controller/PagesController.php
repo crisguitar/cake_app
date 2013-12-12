@@ -44,30 +44,14 @@ class PagesController extends AppController {
  * @throws NotFoundException When the view file could not be found
  *	or MissingViewException in debug mode.
  */
-	
-	public $paginate = array(
-        'limit' => 3,
-        'order' => array(
-            'Entry.creation_date' => 'desc'
-        )
-    );
 
-    public $components = array('Paginator');
-
-    public function beforeFilter() {
+	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index','display');
+        $this->Auth->allow('index');
     }
 
 	public function display() {
   	
-		$this->loadModel('Entry');
-		$this->Paginator->settings = $this->paginate;
-
-    	$data = $this->Paginator->paginate('Entry');
-    	$this->set('entries', $data);
-		// $this->set('entries', $this->Entry->find('all'));
-
 		$path = func_get_args();
 
 		$count = count($path);

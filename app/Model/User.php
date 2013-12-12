@@ -18,6 +18,18 @@ class User extends AppModel {
                 'message' => 'A username is required'
             )
         ),
+        'email' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'An email is required'
+            )
+        ),
+        'twitter_username' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'A valid twitter username is required'
+            )
+        ),
         'password' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
@@ -32,6 +44,13 @@ class User extends AppModel {
             )
         )
     );
+
+    public function userExists($username) {
+        if($this->findByUsername($username)) {
+            return true;
+        }
+        return false;
+    }
 
     public function beforeSave($options = array()) {
 	    if (isset($this->data[$this->alias]['password'])) {
